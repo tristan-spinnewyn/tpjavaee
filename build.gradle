@@ -1,0 +1,62 @@
+plugins {
+    id 'war'  
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.enterprise:cdi-api:2.0'
+	providedCompile 'javax.inject:javax.inject:1'
+	providedCompile 'javax.faces:javax.faces-api:2.3'
+	providedCompile 'com.sun.mail:javax.mail:1.6.2'
+	providedCompile 'javax.persistence:javax.persistence-api:2.2'
+	providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+	providedCompile 'javax.transaction:javax.transaction-api:1.3'
+	providedCompile 'javax.annotation:javax.annotation-api:1.3.2'
+	providedCompile 'javax.ejb:javax.ejb-api:3.2.2'
+	providedCompile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+	implementation 'org.primefaces:primefaces:7.0'
+	implementation 'com.itextpdf:itextpdf:5.5.13.1'
+}
+
+war {
+    from 'web'
+}
+
+sourceSets {
+     main {
+        java {
+            srcDir 'src/java'
+        }
+		resources {
+            srcDir 'src/resources'
+        }
+    }
+}
+
+ext.setProperty('payaraHome', "/d:/Henri/payara5");
+ext.setProperty('asadminDir', "${payaraHome}${File.separator}bin");
+ext.setProperty('asadminFile', System.properties['os.name'].toLowerCase().contains('windows')? ['cmd', '/c', 'asadmin.bat']: './asadmin')
+ 
+task startServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+ 
+    args "start-domain"
+}
+ 
+task stopServer(type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+ 
+    args "stop-domain"
+}
+ 
+task redeploy(dependsOn: 'war', type:Exec) {
+    workingDir asadminDir;
+    commandLine asadminFile;
+ 
+    args "deploy", "--force=true", "--contextroot=/", "${war.archivePath}";
+}

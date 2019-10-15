@@ -1,0 +1,11 @@
+body {
+    font-size : small;
+}
+
+.ui-panel-titlebar {
+    text-align: center;
+}
+
+.table-no-header thead {
+    display: none;
+}
