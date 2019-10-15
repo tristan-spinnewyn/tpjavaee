@@ -39,7 +39,14 @@ sourceSets {
 ext.setProperty('payaraHome', "/d:/Henri/payara5");
 ext.setProperty('asadminDir', "${payaraHome}${File.separator}bin");
 ext.setProperty('asadminFile', System.properties['os.name'].toLowerCase().contains('windows')? ['cmd', '/c', 'asadmin.bat']: './asadmin')
- 
+
+task explodedWar(type: Sync) {
+    def outdir = "${buildDir}${File.separator}libs${File.separator}exploded${File.separator}${war.archiveName}"
+    mkdir "${outdir}"
+    into"${outdir}"
+    with war
+}
+
 task startServer(type:Exec) {
     workingDir asadminDir;
     commandLine asadminFile;
@@ -60,3 +67,5 @@ task redeploy(dependsOn: 'war', type:Exec) {
  
     args "deploy", "--force=true", "--contextroot=/", "${war.archivePath}";
 }
+
+war.dependsOn explodedWar
