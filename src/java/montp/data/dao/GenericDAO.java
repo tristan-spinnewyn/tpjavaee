@@ -39,4 +39,7 @@ public abstract class GenericDAO<T extends GenericEntity> {
         em.remove(em.find(instanceClass, instance.getId()));
     }
 
+    public boolean canDelete(T instance) {
+        return false;
+    }
 }

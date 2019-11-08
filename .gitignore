@@ -23,12 +23,15 @@ WEB-INF/lib/
 WEB-INF/classes/
 build/
 dist/
+bin/
 nbproject
 .gradle
 .idea
 *.iml
 .externalNativeBuild
-
+.classpath
+.project
+.settings/
 
 # Compiled source #
 ###################
