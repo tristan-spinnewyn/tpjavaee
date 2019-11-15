@@ -10,7 +10,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @ApplicationScoped
-@Named
 public class UserDAO extends GenericDAO<User> {
 
     public UserDAO() {
