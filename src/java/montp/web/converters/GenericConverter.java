@@ -7,7 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-public class GenericConverter<T extends GenericEntity> implements Converter {
+public class GenericConverter<T extends GenericEntity> implements Converter<T> {
 
     protected GenericDAO<T> dao;
 
@@ -16,16 +16,16 @@ public class GenericConverter<T extends GenericEntity> implements Converter {
     }
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String id) {
+    public T getAsObject(FacesContext context, UIComponent component, String id) {
         return dao.get(Integer.parseInt(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null) return null;
+    public String getAsString(FacesContext context, UIComponent component, T value) {
+        if (value == null) return "";
         T o = (T) value;
-        if (o.getId() == null) return null;
+        if (o.getId() == null) return "";
         return ((T) value).getId().toString();
     }
 
