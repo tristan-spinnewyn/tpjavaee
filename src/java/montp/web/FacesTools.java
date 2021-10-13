@@ -110,19 +110,20 @@ public class FacesTools {
             throws IOException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new DefaultStreamedContent();
+            return DefaultStreamedContent.builder().build();
         }
         int width = -1;
         int height = -1;
         ExternalContext externalContext = facesContext.getExternalContext();
         String swidth = externalContext.getRequestParameterMap().get("width");
         if (swidth != null) {
-            width = Integer.valueOf(swidth);
+            width = Integer.parseInt(swidth);
         }
         String sheight = externalContext.getRequestParameterMap().get("height");
         if (sheight != null) {
-            height = Integer.valueOf(sheight);
+            height = Integer.parseInt(sheight);
         }
+        final ByteArrayInputStream bis;
         if ((height != -1) || (width != -1)) {
             BufferedImage bim = ImageIO.read(new ByteArrayInputStream(data));
             Image scaled = bim.getScaledInstance(width, height,
@@ -133,10 +134,11 @@ public class FacesTools {
             scaledBim.createGraphics().drawImage(scaled, 0, 0, null);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(scaledBim, "jpeg", os);
-            return new DefaultStreamedContent(new ByteArrayInputStream(os.toByteArray()));
+            bis = new ByteArrayInputStream(os.toByteArray());
         } else {
-            return new DefaultStreamedContent(new ByteArrayInputStream(data));
+            bis = new ByteArrayInputStream(data);
         }
+        return DefaultStreamedContent.builder().contentType("image/jpeg").name("image.jpeg").stream(() -> bis).build();
     }
 
     public static String getClientIpAddr(HttpServletRequest request) {

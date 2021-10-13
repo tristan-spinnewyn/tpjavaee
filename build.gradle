@@ -1,5 +1,5 @@
 plugins {
-    id 'war'  
+    id 'war'
 }
 
 repositories {
@@ -17,12 +17,12 @@ dependencies {
 	providedCompile 'javax.annotation:javax.annotation-api:1.3.2'
 	providedCompile 'javax.ejb:javax.ejb-api:3.2.2'
 	providedCompile 'javax.ws.rs:javax.ws.rs-api:2.1.1'
-	implementation 'org.primefaces:primefaces:7.0'
-	implementation 'com.itextpdf:itextpdf:5.5.13.1'
+	implementation 'org.primefaces:primefaces:10.0.0'
+	implementation 'com.itextpdf:itextpdf:5.5.13.2'
 }
 
 war {
-    from 'web'
+    webAppDirectory = file('web')
 }
 
 sourceSets {
@@ -36,7 +36,7 @@ sourceSets {
     }
 }
 
-ext.setProperty('payaraHome', "/d:/Henri/payara5");
+ext.setProperty('payaraHome', "C:\\Users\\hmich\\Documents\\payara-5.2021.7\\payara5");
 ext.setProperty('asadminDir', "${payaraHome}${File.separator}bin");
 ext.setProperty('asadminFile', System.properties['os.name'].toLowerCase().contains('windows')? ['cmd', '/c', 'asadmin.bat']: './asadmin')
 
