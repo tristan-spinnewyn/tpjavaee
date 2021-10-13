@@ -32,6 +32,9 @@ nbproject
 .classpath
 .project
 .settings/
+gradlew
+gradlew.bat
+gradle/
 
 # Compiled source #
 ###################

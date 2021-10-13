@@ -26,7 +26,8 @@ public abstract class Tools {
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         return s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
     }
-    
+
+    @SuppressWarnings("unchecked")
     public static <T> T lookupEJB(Class<T> ejbClass, String jndiName) {
         try {
             return (T) new InitialContext().lookup("java:comp/env/" + jndiName);
