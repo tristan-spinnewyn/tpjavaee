@@ -8,10 +8,32 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormatSymbols;
 import java.text.Normalizer;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public abstract class Tools {
+
+    public static Date getDate(LocalDateTime dateTime) {
+        return Date.from(dateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static LocalDateTime getLocalDateTime(Date dateToConvert) {
+        return LocalDateTime.ofInstant(
+                dateToConvert.toInstant(), ZoneId.systemDefault());
+    }
+
+    public static Date getDate(LocalDate date) {
+        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static LocalDate getLocalDate(Date dateToConvert) {
+        return LocalDate.ofInstant(
+                dateToConvert.toInstant(), ZoneId.systemDefault());
+    }
 
     public static String getMonthName(int month) {
         return new DateFormatSymbols().getMonths()[month - 1];
