@@ -7,7 +7,7 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="/css/default.css"/>
-        <title>Mon TP</title>
+        <title>#{msg['app.title']}</title>
     </h:head>
     <h:body>
         <p:confirmDialog global="true">
@@ -16,6 +16,10 @@
                              styleClass="ui-confirmdialog-yes" 
                              icon="fa fa-check"/>
         </p:confirmDialog>
-        <ui:insert name="content"></ui:insert>
+        <p:dialog widgetVar="dlgStatus" modal="true" draggable="false"
+                  closable="false" resizable="false" showHeader="false">
+            <p:graphicImage name="/ajaxloadingbar.gif" />
+        </p:dialog>
+        <ui:insert name="content">&nbsp;</ui:insert>
     </h:body>
 </html>

@@ -30,9 +30,12 @@ public class Seeder {
             em.persist(groupUser);
             Group groupAdmin = new Group("ADMIN");
             em.persist(groupAdmin);
-            User userAdmin = new User("admin", "admin");
+            User userUser1 = new User("user1", "user1");
             List<Group> groupes = new ArrayList<>();
             groupes.add(groupUser);
+            userUser1.setGroups(groupes);
+            userService.insert(userUser1);
+            User userAdmin = new User("admin", "admin");
             groupes.add(groupAdmin);
             userAdmin.setGroups(groupes);
             userService.insert(userAdmin);

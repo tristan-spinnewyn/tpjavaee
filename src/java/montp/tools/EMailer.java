@@ -11,7 +11,6 @@ import java.util.Properties;
 
 public abstract class EMailer {
 
-    private String from;
     private String server;
     private String user;
     private String password;
@@ -20,14 +19,16 @@ public abstract class EMailer {
     public EMailer() {
     }
 
-    public EMailer(String from, 
-            String server, String user, String password, int port) {
-        this.from = from;
+    public EMailer(String server, String user, String password, int port) {
         this.server = server;
         this.user = user;
         this.password = password;
         this.port = port;
     }
+
+    public abstract String getFrom();
+
+    public String getUser() { return user; }
 
     public void send(String to, String subject, String content)
             throws AddressException, MessagingException {
@@ -50,7 +51,7 @@ public abstract class EMailer {
         String[] dests = new String[]{to};
         for (String dest : dests) {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(getFrom()));
             message.setSentDate(new Date());
             message.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(dest));
