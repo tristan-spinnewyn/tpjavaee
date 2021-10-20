@@ -83,7 +83,7 @@ public class FacesTools {
     public static void redirect(String url) {
         ExternalContext ec = getExternalContext();
         try {
-            ec.redirect(ec.getRequestContextPath() + "/" + url);
+            ec.redirect(ec.getRequestContextPath() + "/app/" + url + ".xhtml");
         } catch (IOException ex) {
         }
     }
