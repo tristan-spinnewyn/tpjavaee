@@ -62,6 +62,7 @@ public class FacesTools {
         UAgentInfo agentInfo = new UAgentInfo(request.getHeader("User-Agent"), null);
         return agentInfo.detectMobileQuick() || agentInfo.detectTierTablet();
     }*/
+
     public static void addMessage(FacesMessage.Severity severity,
             String msg, Object... args) {
         FacesContext

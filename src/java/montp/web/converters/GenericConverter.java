@@ -21,12 +21,10 @@ public class GenericConverter<T extends GenericEntity> implements Converter<T> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public String getAsString(FacesContext context, UIComponent component, T value) {
         if (value == null) return "";
-        T o = (T) value;
-        if (o.getId() == null) return "";
-        return ((T) value).getId().toString();
+        if (value.getId() == null) return "";
+        return value.getId().toString();
     }
 
 }

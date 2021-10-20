@@ -6,6 +6,7 @@ import montp.services.UserService;
 import montp.tools.EMailer;
 import montp.tools.Logger;
 import montp.web.FacesTools;
+import montp.web.UserSession;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,7 +21,7 @@ import java.util.List;
 @Named("index")
 public class IndexView implements Serializable {
 
-    @Inject private User user;
+    @Inject private UserSession session;
 
     @Inject private UserService userService;
     @Inject private EMailer eMailer;
@@ -34,7 +35,7 @@ public class IndexView implements Serializable {
     }
 
     public String getHello() {
-        return String.format(messages.get("example.hello"), messages.get("app.title"));
+        return String.format(messages.get("example.hello"), session.getUser());
     }
 
     public List<User> getUsers() { return userService.getUsers(); }

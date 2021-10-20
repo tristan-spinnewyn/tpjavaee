@@ -17,15 +17,13 @@ public class UserSession implements Serializable {
     @Inject
     private UserService userService;
 
-    @Produces
-    @Named
     private User user;
     
 
     @PostConstruct
     public void init() {
-//        user = userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName());
-//        user = userService.getFromUsername("admin"); // désactiver la sécurité dans web.xml pour l'autologin
+//        user = userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName()); // si authentification activée
+        user = userService.getFromUsername("admin"); // désactiver la sécurité dans web.xml pour l'autologin
     }
     
     public void logout() {
@@ -33,4 +31,5 @@ public class UserSession implements Serializable {
         FacesTools.redirect("/");
     }
 
+    public User getUser() { return user; }
 }
