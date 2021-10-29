@@ -28,8 +28,12 @@ public class UserSession implements Serializable {
     
     public void logout() {
         FacesTools.getRequest().getSession().invalidate();
-        FacesTools.redirect("/");
+        FacesTools.redirect("index");
     }
 
     public User getUser() { return user; }
+
+    public boolean isAdmin() {
+        return FacesTools.getRequest().isUserInRole("ADMIN");
+    }
 }
