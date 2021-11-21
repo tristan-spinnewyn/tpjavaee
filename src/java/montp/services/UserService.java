@@ -55,7 +55,7 @@ public class UserService extends GenericService<User, UserDAO> {
             user.setGroups(groupes);
         }
         user.setPassword(Tools.digestSHA256Hex(user.getPassword().trim()));
-        user.setUserName(user.getUserName().toLowerCase().trim());
+        user.setUserMail(user.getUserMail().toLowerCase().trim());
         super.insert(user);
     }
 

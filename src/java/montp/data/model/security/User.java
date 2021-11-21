@@ -9,8 +9,8 @@ import java.util.List;
 @Table(name = "SECURITY_USER")
 public class User extends GenericEntity {
 
-    @Column(nullable = false, unique = true, length = 50)
-    private String userName;
+    @Column(nullable = false, unique = true, length = 100)
+    private String userMail;
     @Column(columnDefinition = "TEXT")
     private String password;
     @Column(columnDefinition = "TEXT")
@@ -18,8 +18,8 @@ public class User extends GenericEntity {
 
     @ManyToMany
     @JoinTable(name = "SECURITY_USER_GROUP",
-            joinColumns = @JoinColumn(name = "username",
-                    referencedColumnName = "username"),
+            joinColumns = @JoinColumn(name = "usermail",
+                    referencedColumnName = "usermail"),
             inverseJoinColumns = @JoinColumn(name = "groupname",
                     referencedColumnName = "groupname"))
     private List<Group> groups;
@@ -27,17 +27,17 @@ public class User extends GenericEntity {
     public User() {
     }
 
-    public User(String userName, String password) {
-        this.userName = userName;
+    public User(String userMail, String password) {
+        this.userMail = userMail;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserMail() {
+        return userMail;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
     }
 
     public String getPassword() {
@@ -66,7 +66,7 @@ public class User extends GenericEntity {
 
     @Override
     public String toString() {
-        return userName;
+        return userMail;
     }
 
 }

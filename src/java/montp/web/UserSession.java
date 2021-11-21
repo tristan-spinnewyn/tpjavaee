@@ -22,8 +22,12 @@ public class UserSession implements Serializable {
 
     @PostConstruct
     public void init() {
-//        user = userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName()); // si authentification activée
-        user = userService.getFromUsername("admin"); // désactiver la sécurité dans web.xml pour l'autologin
+        user = userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName()); // si authentification activée
+        //user = userService.getFromUsername("tristan.spinnewyn@gmail.com"); // désactiver la sécurité dans web.xml pour l'autologin
+    }
+
+    public boolean isConnected(){
+        return FacesTools.getRequest().getUserPrincipal().getName() != null;
     }
     
     public void logout() {
@@ -36,4 +40,5 @@ public class UserSession implements Serializable {
     public boolean isAdmin() {
         return FacesTools.getRequest().isUserInRole("ADMIN");
     }
+
 }
