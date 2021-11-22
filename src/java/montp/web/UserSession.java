@@ -25,10 +25,6 @@ public class UserSession implements Serializable {
         user = userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName()); // si authentification activée
         //user = userService.getFromUsername("tristan.spinnewyn@gmail.com"); // désactiver la sécurité dans web.xml pour l'autologin
     }
-
-    public boolean isConnected(){
-        return FacesTools.getRequest().getUserPrincipal().getName() != null;
-    }
     
     public void logout() {
         FacesTools.getRequest().getSession().invalidate();
