@@ -27,11 +27,15 @@ public class IndexView implements Serializable {
     @Inject private EMailer eMailer;
     @Inject private Messages messages;
 
+    @Inject private EditUserDialog editUserDialog;
+
+
     private String emailTo;
 
     @PostConstruct
     public void init() {
         Logger.log(Logger.LogLevel.INFO, IndexView.class.getSimpleName(), "initializing view controller");
+        editUserDialog.setInstance(session.getUser());
     }
 
     public String getHello() {
