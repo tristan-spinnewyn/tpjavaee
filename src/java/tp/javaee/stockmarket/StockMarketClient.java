@@ -6,6 +6,8 @@ import javax.ws.rs.client.*;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @ApplicationScoped
@@ -50,6 +52,13 @@ public class StockMarketClient implements StockMarket {
                 .path("quotes")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(companiesSymbols), new GenericType<Collection<Quote>>() {});
+    }
+
+    public Double getQuote(Company company){
+        Set<String> companies = new HashSet<String>();
+        companies.add(company.getSymbol());
+        List<Quote> quotes = (List<Quote>) getQuotes(companies);
+        return quotes.get(0).getQuote();
     }
 
 }

@@ -8,13 +8,15 @@
 
             <p:toolbar id="toolbar">
                 <f:facet name="left">
-                    <p:commandButton icon="fa fa-plus"
-                                     title="Ajouter une société au panier de cotations"
-                                     onclick="PF('dlgAddCompany').show()"
-                                     rendered="#{view.viewId == '/index.xhtml'}"/>
+                    <h:link outcome="addcompany"
+                            >
+                        <p:button icon="fa fa-plus"
+                                  title="Ajouter une société au panier de cotations"/>
+                    </h:link>
                     <p:commandButton icon="fa fa-user"
                                      title="Modifier mes informations"
-                                     onclick="PF('editUserDlg').show()"/>
+                                     onclick="PF('editUserDlg').show()"
+                                     rendered="#{view.viewId == '/index.xhtml'}"/>
                 </f:facet>
                 <f:facet name="right">
                     <h:outputText value="#{user}"/>
@@ -39,7 +41,7 @@
                 </f:facet>
             </p:toolbar>
         <p:spacer/>
-        <ui:insert name="main"> </ui:insert>
+        <ui:insert name="main"></ui:insert>
         <ui:include src="dialogs/editUserDlg.xhtml"/>
     </ui:define>
 </ui:composition>

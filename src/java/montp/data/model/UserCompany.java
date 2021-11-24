@@ -12,8 +12,19 @@ public class UserCompany extends GenericEntity{
     private String Symbol;
     @ManyToOne
     private User user;
+
+    public UserCompany(String symbol, User user, Double priceQuote) {
+        Symbol = symbol;
+        this.user = user;
+        this.priceQuote = priceQuote;
+    }
+
     @Column(nullable = false)
     private Double priceQuote;
+
+    public UserCompany() {
+
+    }
 
     public String getSymbol() {
         return Symbol;
