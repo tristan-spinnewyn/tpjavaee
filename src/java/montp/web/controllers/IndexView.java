@@ -1,12 +1,15 @@
 package montp.web.controllers;
 
+import montp.data.model.UserCompany;
 import montp.data.model.security.User;
 import montp.locale.Messages;
+import montp.services.UserCompanyService;
 import montp.services.UserService;
 import montp.tools.EMailer;
 import montp.tools.Logger;
 import montp.web.FacesTools;
 import montp.web.UserSession;
+import tp.javaee.stockmarket.StockMarketClient;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -28,9 +31,12 @@ public class IndexView implements Serializable {
     @Inject private Messages messages;
 
     @Inject private EditUserDialog editUserDialog;
+    @Inject private StockMarketClient client;
+    @Inject private UserCompanyService service;
 
 
     private String emailTo;
+    private List<UserCompany> userCompanies;
 
     @PostConstruct
     public void init() {
@@ -59,4 +65,29 @@ public class IndexView implements Serializable {
 
     public String getEmailTo() { return emailTo;   }
     public void setEmailTo(String emailTo) {  this.emailTo = emailTo;  }
+
+    public String getCompanyName(String symbol){
+        return client.getCompany(symbol).getName();
+    }
+
+    public String getCurrentQuote(String symbol){
+        return String.format("%.2f",client.getQuote(symbol));
+    }
+
+    public void remove(long id){
+        UserCompany userCompany = service.get(id);
+        service.delete(userCompany);
+    }
+
+    public List<UserCompany> getUserCompanies() {
+        return service.getAll();
+    }
+
+    public String getVariation(long id){
+        UserCompany userCompany = service.get(id);
+        Double quoteOrigine = userCompany.getPriceQuote();
+
+        Double variation = ((client.getQuote(userCompany.getSymbol())-quoteOrigine)/quoteOrigine * 100);
+        return String.format("%.2f",variation);
+    }
 }

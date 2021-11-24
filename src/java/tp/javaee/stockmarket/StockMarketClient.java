@@ -61,4 +61,11 @@ public class StockMarketClient implements StockMarket {
         return quotes.get(0).getQuote();
     }
 
+    public Double getQuote(String symbol){
+        Set<String> companies = new HashSet<String>();
+        companies.add(symbol);
+        List<Quote> quotes = (List<Quote>) getQuotes(companies);
+        return quotes.get(0).getQuote();
+    }
+
 }

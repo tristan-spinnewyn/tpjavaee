@@ -1,7 +1,9 @@
 package montp.data.model;
 
 import montp.data.model.security.User;
+import tp.javaee.stockmarket.StockMarketClient;
 
+import javax.inject.Inject;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

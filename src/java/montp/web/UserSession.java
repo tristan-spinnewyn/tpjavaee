@@ -37,4 +37,10 @@ public class UserSession implements Serializable {
         return FacesTools.getRequest().isUserInRole("ADMIN");
     }
 
+    public void update(){
+        if(!userService.isActive(userService.getFromUsername(FacesTools.getRequest().getUserPrincipal().getName()))){
+            this.logout();
+        }
+    }
+
 }

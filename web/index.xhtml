@@ -5,7 +5,52 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="./layout_user.xhtml">
     <ui:define name="main">
-        <h2>#{index.hello}</h2>
+        <h:form>
+            <p:poll interval="30" listener="#{userSession.update()}"
+                    update="formTabUserQuotes:tabUserQuotes" />
+        </h:form>
+        <p:panel id='quotes'
+                 style="width: 1000px;"
+                 header="Cotations courantes"
+                 class="panel-dashboard">
+            <h:form id="formTabUserQuotes">
+                <p:dataTable id="tabUserQuotes"
+                             value="#{index.userCompanies}"
+                             emptyMessage="Aucune cotation dans votre panier."
+                             var="quote">
+                    <p:column headerText="Symbole"
+                              sortBy="#{quote.symbol}"
+                              style="width:150px;">
+                        #{quote.symbol}
+                    </p:column>
+                    <p:column headerText="Société">
+                        #{index.getCompanyName(quote.symbol)}
+                    </p:column>
+                    <p:column headerText="Cotation"
+                              style="width:80px; text-align: right;">
+                        <h:outputText value="#{index.getCurrentQuote(quote.symbol)}">
+                            <f:convertNumber type="currency" currencySymbol="€"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Variation"
+                              style="width:80px; text-align: right;">
+                        <h:outputText value="#{index.getVariation(quote.id)}">
+                            <f:convertNumber type="percent"
+                                             minFractionDigits="2"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column style="width: 32px;">
+                        <p:commandButton icon="fa fa-trash"
+                                         update="@form,formTabUserQuotes:tabUserQuotes"
+                                         process="@this"
+                                         actionListener="#{index.remove(quote.id)}">
+                            <p:confirm header="Supprimer une cotations du panier"
+                                       message="Supprimer #{quote.symbol} ?"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panel>
     </ui:define>
 </ui:composition>
 
