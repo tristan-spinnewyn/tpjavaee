@@ -80,7 +80,7 @@ public class IndexView implements Serializable {
     }
 
     public List<UserCompany> getUserCompanies() {
-        return service.getAll();
+        return service.getAll(session.getUser());
     }
 
     public String getVariation(long id){

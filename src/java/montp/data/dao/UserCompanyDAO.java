@@ -12,8 +12,9 @@ public class UserCompanyDAO extends GenericDAO<UserCompany>{
         super(UserCompany.class);
     }
     @SuppressWarnings("unchecked")
-    public List<UserCompany> getAll(){
-        return em.createQuery("SELECT uc FROM UserCompany uc")
+    public List<UserCompany> getAll(User user){
+        return em.createQuery("SELECT uc FROM UserCompany uc where uc.user = :user")
+                .setParameter("user",user)
                 .getResultList();
     }
 }

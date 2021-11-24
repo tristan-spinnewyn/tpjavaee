@@ -36,7 +36,7 @@ public class UserService extends GenericService<User, UserDAO> {
         String password = user.getPassword();
         user.setOldPassword(password);
         user.setPassword(null);
-        super.update(user);
+        dao.changeStatus(user);
     }
 
     @Transactional
@@ -44,7 +44,7 @@ public class UserService extends GenericService<User, UserDAO> {
         String password = user.getOldPassword();
         user.setPassword(password);
         user.setOldPassword(null);
-        super.update(user);
+        dao.changeStatus(user);
     }
 
     @Transactional
